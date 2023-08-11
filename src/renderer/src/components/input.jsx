@@ -1,6 +1,6 @@
 import React from 'react'
 
-function InputBox({ label, newCss, onChange, placeholder }) {
+function InputBox({ label, onChange, placeholder }) {
   return (
     <div>
       <label>{label}</label>

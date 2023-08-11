@@ -4,7 +4,12 @@ export default {
   theme: {
     colors: {
       primary: {
-        bg: '#2D2727'
+        bg: '#2D2727',
+        white: '#f5f5f5',
+        pink: '#8F43EE'
+      },
+      input: {
+        bg: '#413543'
       }
     }
   }

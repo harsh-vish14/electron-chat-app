@@ -1,8 +1,7 @@
 // import {  Route } from 'electron-router-dom'
-import HOME from './pages/home'
 import ABOUT from './pages/about'
 import { HashRouter, Link, Route, Routes, useNavigate } from 'react-router-dom'
-import SIGNIN from './pages/auth/signin'
+import SIGNIN from './pages/auth/signin.jsx'
 
 function App() {
   // const navigate = useNavigate()

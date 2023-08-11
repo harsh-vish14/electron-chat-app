@@ -1,6 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useFilePicker } from 'use-file-picker'
 
 function SIGNIN() {
+  // images
+  const [avatarUrl, setAvatarUrl] = useState(
+    'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1387&q=80'
+  )
+  const [openFileSelector, { filesContent, loading }] = useFilePicker({
+    accept: ['.png', '.jpg', '.jpeg'],
+    readAs: 'DataURL'
+  })
+
+  // inputs
+  const [inputs, setInputs] = useState({
+    name: '',
+    email: ''
+  })
+
+  useEffect(() => {
+    const imgUrl =
+      filesContent[0]?.content ||
+      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1387&q=80'
+    setAvatarUrl(imgUrl)
+  }, [filesContent])
+
   return (
     <div className="flex flex-col pt-32 items-center h-screen">
       <div className="flex flex-col items-center">
@@ -26,18 +49,52 @@ function SIGNIN() {
             />
           </svg>
         </div>
-        <div className="mt-4 text-5xl font-extrabold">welcome</div>
-        <div className="h-20 w-20  my-3 rounded-md overflow-hidden">
-          <img
-            src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1387&q=80"
-            height="100%"
-            width="100%"
-            className="block"
+        <div className="my-4 text-5xl font-bold">welcome</div>
+        <div className="relative">
+          <div className="h-20 w-20 my-3 rounded-md overflow-hidden ">
+            <img src={avatarUrl} height="100%" width="100%" className="block object-contain" />
+          </div>
+          <div>
+            <div
+              onClick={() => openFileSelector()}
+              className="absolute z-10 top-0 left-0 h-full w-full flex justify-center items-center bg-primary-bg opacity-0 cursor-pointer hover:opacity-60 transition-opacity"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="1.2em"
+                viewBox="0 0 512 512"
+                className="fill-primary-white"
+              >
+                <path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z" />
+              </svg>{' '}
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <label>Name</label>
+          <input
+            value={inputs.name}
+            type="text"
+            className="bg-input-bg p-2 w-72 rounded-md outline-none"
+            onChange={(val) => {
+              setInputs({ ...inputs, name: val.target.value })
+            }}
           />
         </div>
-        <div>name input</div>
-        <div>email input</div>
-        <div>submit btn</div>
+        <div className="flex flex-col mt-5">
+          <label>Email</label>
+          <input
+            value={inputs.email}
+            type="email"
+            className="bg-input-bg p-2 w-72 rounded-md outline-none"
+            onChange={(val) => {
+              setInputs({ ...inputs, email: val.target.value })
+            }}
+          />
+        </div>
+        <div className="submit-btn mt-5 bg-primary-pink w-64 p-2 text-center rounded-md text-base cursor-pointer scale-100 hover:scale-105 transition-all">
+          submit
+        </div>
       </div>
     </div>
   )
