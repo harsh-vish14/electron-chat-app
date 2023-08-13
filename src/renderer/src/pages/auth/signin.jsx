@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useFilePicker } from 'use-file-picker'
+import pushNotification from '../../helper/notification'
 
 function SIGNIN() {
+  const [signInUI, setSignInUI] = useState(false)
+
   // images
   const [avatarUrl, setAvatarUrl] = useState(
     'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1387&q=80'
@@ -14,8 +17,15 @@ function SIGNIN() {
   // inputs
   const [inputs, setInputs] = useState({
     name: '',
-    email: ''
+    email: '',
+    password: '',
+    confirmPassword: ''
   })
+
+  const buttonClick = () => {
+    console.log('but clicked')
+    pushNotification('test title', 'test message')
+  }
 
   useEffect(() => {
     const imgUrl =
@@ -25,7 +35,7 @@ function SIGNIN() {
   }, [filesContent])
 
   return (
-    <div className="flex flex-col pt-32 items-center h-screen">
+    <div className="flex flex-col items-center h-screen justify-center">
       <div className="flex flex-col items-center">
         <div className="h-16 w-16" style={{ filter: 'drop-shadow(0px 0px 4px #8F43EE)' }}>
           <svg
@@ -92,8 +102,50 @@ function SIGNIN() {
             }}
           />
         </div>
-        <div className="submit-btn mt-5 bg-primary-pink w-64 p-2 text-center rounded-md text-base cursor-pointer scale-100 hover:scale-105 transition-all">
-          submit
+        {signInUI && (
+          <>
+            <div className="flex flex-col mt-5">
+              <label>Password</label>
+              <input
+                value={inputs.password}
+                type="email"
+                className="bg-input-bg p-2 w-72 rounded-md outline-none"
+                onChange={(val) => {
+                  setInputs({ ...inputs, email: val.target.value })
+                }}
+              />
+            </div>
+            <div className="flex flex-col mt-5">
+              <label>confirm Password</label>
+              <input
+                value={inputs.confirmPassword}
+                type="email"
+                className="bg-input-bg p-2 w-72 rounded-md outline-none"
+                onChange={(val) => {
+                  setInputs({ ...inputs, email: val.target.value })
+                }}
+              />
+            </div>
+          </>
+        )}
+        <div
+          onClick={() => {
+            buttonClick()
+          }}
+          className="submit-btn mt-10 bg-primary-pink w-64 p-2 text-center rounded-md text-base cursor-pointer scale-100 hover:scale-105 transition-all"
+        >
+          Submit
+        </div>
+        <div className="mt-3">
+          {signInUI ? 'Already Have Account' : 'New Here'}?{' '}
+          <span
+            className="text-primary-pink cursor-pointer hover:underline"
+            onClick={() => {
+              setSignInUI(!signInUI)
+            }}
+          >
+            {signInUI ? 'Login' : 'Register'}
+          </span>
         </div>
       </div>
     </div>
