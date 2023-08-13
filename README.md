@@ -1,4 +1,4 @@
-# first-project
+# Group Chat
 
 An Electron application with React
 

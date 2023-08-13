@@ -1,0 +1,8 @@
+.titleBar {
+  -webkit-app-select: none; /* <-- Add this line */
+  -webkit-app-region: drag; /* <-- Add this line */
+  background-color: transparent;
+  width: 100%;
+  height: 20px;
+  position: absolute;
+}

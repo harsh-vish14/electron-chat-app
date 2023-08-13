@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: first-project
+productName: Group Chat
 directories:
   buildResources: build
 files:
@@ -12,7 +12,7 @@ asarUnpack:
   - resources/**
 afterSign: build/notarize.js
 win:
-  executableName: first-project
+  executableName: Group Chat
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

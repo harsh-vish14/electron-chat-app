@@ -1,9 +1,9 @@
 {
-  "name": "electron-chat-app",
+  "name": "Group Chat",
   "version": "1.0.0",
   "description": "Electron chat-app with react js",
   "main": "./out/main/index.js",
-  "author": "example.com",
+  "author": "https://harshvish.vercel.app/",
   "homepage": "https://www.electronjs.org",
   "scripts": {
     "format": "prettier --write .",
@@ -19,6 +19,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^1.0.2",
+    "custom-electron-titlebar": "^4.2.7",
     "electron-router-dom": "^1.0.5",
     "electron-titlebar-windows": "^3.0.0",
     "electron-updater": "^5.3.0",

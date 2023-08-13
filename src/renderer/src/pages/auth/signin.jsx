@@ -4,7 +4,7 @@ import pushNotification from '../../helper/notification'
 
 function SIGNIN() {
   const [signInUI, setSignInUI] = useState(false)
-
+  const [showError, setShowError] = useState({ show: false, message: 'Error Message' })
   // images
   const [avatarUrl, setAvatarUrl] = useState(
     'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1387&q=80'
@@ -23,8 +23,9 @@ function SIGNIN() {
   })
 
   const buttonClick = () => {
-    console.log('but clicked')
-    pushNotification('test title', 'test message')
+    setShowError({ show: true, message: 'error message here!!' })
+
+    // pushNotification('test title', 'test message')
   }
 
   useEffect(() => {
@@ -61,8 +62,13 @@ function SIGNIN() {
         </div>
         <div className="my-4 text-5xl font-bold">welcome</div>
         <div className="relative">
-          <div className="h-20 w-20 my-3 rounded-md overflow-hidden ">
-            <img src={avatarUrl} height="100%" width="100%" className="block object-contain" />
+          <div className="h-20 w-20 my-3 rounded-md overflow-hidden">
+            <img
+              src={avatarUrl}
+              height="100%"
+              width="100%"
+              className="object-cover h-full w-full"
+            />
           </div>
           <div>
             <div
@@ -83,6 +89,9 @@ function SIGNIN() {
         <div className="flex flex-col">
           <label>Name</label>
           <input
+            onChangeCapture={() => {
+              setShowError({ show: false, message: '' })
+            }}
             value={inputs.name}
             type="text"
             className="bg-input-bg p-2 w-72 rounded-md outline-none"
@@ -94,6 +103,9 @@ function SIGNIN() {
         <div className="flex flex-col mt-5">
           <label>Email</label>
           <input
+            onChangeCapture={() => {
+              setShowError({ show: false, message: '' })
+            }}
             value={inputs.email}
             type="email"
             className="bg-input-bg p-2 w-72 rounded-md outline-none"
@@ -107,6 +119,9 @@ function SIGNIN() {
             <div className="flex flex-col mt-5">
               <label>Password</label>
               <input
+                onChangeCapture={() => {
+                  setShowError({ show: false, message: '' })
+                }}
                 value={inputs.password}
                 type="email"
                 className="bg-input-bg p-2 w-72 rounded-md outline-none"
@@ -118,6 +133,9 @@ function SIGNIN() {
             <div className="flex flex-col mt-5">
               <label>confirm Password</label>
               <input
+                onChangeCapture={() => {
+                  setShowError({ show: false, message: '' })
+                }}
                 value={inputs.confirmPassword}
                 type="email"
                 className="bg-input-bg p-2 w-72 rounded-md outline-none"
@@ -128,11 +146,12 @@ function SIGNIN() {
             </div>
           </>
         )}
+        {showError.show && <span className="mt-1 text-[#f94a6a]">{showError.message}</span>}
         <div
           onClick={() => {
             buttonClick()
           }}
-          className="submit-btn mt-10 bg-primary-pink w-64 p-2 text-center rounded-md text-base cursor-pointer scale-100 hover:scale-105 transition-all"
+          className="submit-btn mt-6 bg-primary-pink w-64 p-2 text-center rounded-md text-base cursor-pointer scale-100 hover:scale-105 transition-all"
         >
           Submit
         </div>
@@ -147,6 +166,31 @@ function SIGNIN() {
             {signInUI ? 'Login' : 'Register'}
           </span>
         </div>
+      </div>
+      <div className="-z-10 absolute -left-0 -bottom-0 opacity-50">
+        <svg
+          width="600"
+          height="600"
+          viewBox="0 0 733 711"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M211.275 0C212.696 5.3651 215.356 10.7294 215.359 16.0954C215.561 296.993 215.534 577.891 215.543 858.789C215.543 879.242 215.629 899.695 215.75 922.406C216.039 926.784 216.254 928.902 216.469 931.021C215.194 933.272 213.918 935.523 210.661 937.921C78.8669 938.048 -50.946 938.019 -180.759 938.036C-187.392 938.037 -194.025 938.443 -200.658 938.661C-202.16 936.092 -204.955 933.531 -204.972 930.953C-205.245 889.195 -205.165 847.434 -205.165 804.229C-111.843 804.229 -19.3546 804.229 74.1082 804.229C74.1082 759.025 74.1082 715.267 74.1082 670.201C68.4505 670.201 63.3595 670.201 58.2685 670.201C-24.0449 670.202 -106.358 670.249 -188.671 670.099C-194.129 670.089 -199.584 668.573 -205.234 666.19C-205.618 664.169 -205.809 663.715 -206 663.262C-205.725 657.833 -205.21 652.405 -205.209 646.977C-205.168 436.857 -205.194 226.737 -205.055 16.617C-205.052 11.4844 -203.284 6.35285 -200.177 0.957166C-64.4049 0.727791 69.2056 0.767131 202.816 0.763299C205.636 0.763214 208.456 0.265546 211.275 0ZM75.053 372.388C75.053 293.468 75.053 214.547 75.053 135.609C27.4007 135.609 -18.0945 135.609 -63.6672 135.609C-63.6672 269.447 -63.6672 402.411 -63.6672 535.353C-17.0108 535.353 28.4586 535.353 75.0531 535.353C75.0531 481.384 75.0531 428.252 75.053 372.388Z"
+            fill="#8F43EE"
+            fill-opacity="0.30"
+          />
+          <path
+            d="M719.146 0C723.383 1.66849 727.621 3.33709 732.066 7.78383C732.24 34.1177 732.353 57.6758 732.137 81.2284C731.806 117.435 731.247 153.638 730.786 189.842L729.809 188.968C729.809 188.968 728.651 189.23 726.899 189.109C634.439 188.989 543.732 188.989 452.132 188.989C452.132 195.225 452.132 198.935 452.132 202.644C452.133 377.029 452.129 551.413 452.167 725.798C452.168 729.58 452.645 733.361 452.9 737.142C452.646 738.778 452.392 740.414 452.719 745.034C477.867 748.645 502.433 749.806 526.999 749.795C591.997 749.767 656.995 749.233 721.993 748.9C723.262 749.236 724.531 749.573 727.401 749.895C729.515 749.828 730.028 749.776 730.542 749.724C731.09 752.433 731.638 755.142 732.19 760.532C732.187 786.763 732.353 810.317 732.131 833.864C731.8 868.785 731.194 903.701 730.705 938.618C726.398 938.291 722.091 937.964 715.739 937.819C588.268 937.951 462.844 937.893 337.42 937.892C334.121 937.892 330.821 938.513 327.522 938.845C326.278 938.475 325.035 938.104 321.939 937.82C318.781 938.27 317.476 938.635 316.171 939C314.606 937.204 313.041 935.408 311.419 930.978C311.403 624.411 311.445 320.478 311.45 16.5448C311.45 13.4063 310.969 10.2679 310.712 7.12926C312.105 5.17523 313.498 3.22108 316.263 1.07035C318.134 0.618658 318.631 0.363546 319.128 0.108318C328.713 0.471047 338.298 0.833894 350.443 1.129C471.762 1.10988 590.522 1.16817 709.281 1.15617C712.569 1.15581 715.857 0.402376 719.146 0Z"
+            fill="#8F43EE"
+            fill-opacity="0.30"
+          />
+          <path
+            d="M733 557.461C730.256 559.379 727.518 562.945 724.765 562.968C681.079 563.318 637.391 563.214 592.635 563.214C592.635 500.761 592.635 439.458 592.635 375.096C637.791 375.096 683.196 375.096 730.189 376.519C731.92 384.229 732.158 390.515 732.192 396.804C732.483 450.356 732.736 503.909 733 557.461Z"
+            fill="#8F43EE"
+            fill-opacity="0.30"
+          />
+        </svg>
       </div>
     </div>
   )
