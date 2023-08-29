@@ -5,7 +5,8 @@ const pushNotification = (title, message) => {
     title: title,
     message: message,
     theme: 'darkblue',
-    native: true // when using native, your OS will handle theming.
+    native: true, // when using native, your OS will handle theming.
+    icon: ''
   })
 }
 

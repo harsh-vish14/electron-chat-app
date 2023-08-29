@@ -3,7 +3,7 @@ import { useFilePicker } from 'use-file-picker'
 import pushNotification from '../../helper/notification'
 
 function SIGNIN() {
-  const [signInUI, setSignInUI] = useState(false)
+  const [signUpUI, setsignUpUI] = useState(false)
   const [showError, setShowError] = useState({ show: false, message: 'Error Message' })
   // images
   const [avatarUrl, setAvatarUrl] = useState(
@@ -23,6 +23,11 @@ function SIGNIN() {
   })
 
   const buttonClick = () => {
+    if (signUpUI) {
+      pushNotification('Sign UP UI', 'UI LOADED SUCCESSFULLY!!')
+    } else {
+      pushNotification('Sign IN UI', 'UI LOADED SUCCESSFULLY!!')
+    }
     setShowError({ show: true, message: 'error message here!!' })
 
     // pushNotification('test title', 'test message')
@@ -114,7 +119,7 @@ function SIGNIN() {
             }}
           />
         </div>
-        {signInUI && (
+        {signUpUI && (
           <>
             <div className="flex flex-col mt-5">
               <label>Password</label>
@@ -156,14 +161,14 @@ function SIGNIN() {
           Submit
         </div>
         <div className="mt-3">
-          {signInUI ? 'Already Have Account' : 'New Here'}?{' '}
+          {signUpUI ? 'Already Have Account' : 'New Here'}?{' '}
           <span
             className="text-primary-pink cursor-pointer hover:underline"
             onClick={() => {
-              setSignInUI(!signInUI)
+              setsignUpUI(!signUpUI)
             }}
           >
-            {signInUI ? 'Login' : 'Register'}
+            {signUpUI ? 'Login' : 'Register'}
           </span>
         </div>
       </div>
