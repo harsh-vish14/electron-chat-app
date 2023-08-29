@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useFilePicker } from 'use-file-picker'
 import pushNotification from '../../helper/notification'
+import COMPONENT_LOADER from '../../components/component_loader'
 
 function SIGNIN() {
   const [signUpUI, setsignUpUI] = useState(false)
   const [showError, setShowError] = useState({ show: false, message: 'Error Message' })
+  const [btnLoading, setBtnLoading] = useState(false)
   // images
   const [avatarUrl, setAvatarUrl] = useState(
     'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1387&q=80'
@@ -25,6 +27,7 @@ function SIGNIN() {
   const buttonClick = () => {
     if (signUpUI) {
       pushNotification('Sign UP UI', 'UI LOADED SUCCESSFULLY!!')
+      setBtnLoading(true)
     } else {
       pushNotification('Sign IN UI', 'UI LOADED SUCCESSFULLY!!')
     }
@@ -152,13 +155,17 @@ function SIGNIN() {
           </>
         )}
         {showError.show && <span className="mt-1 text-[#f94a6a]">{showError.message}</span>}
-        <div
-          onClick={() => {
-            buttonClick()
-          }}
-          className="submit-btn mt-6 bg-primary-pink w-64 p-2 text-center rounded-md text-base cursor-pointer scale-100 hover:scale-105 transition-all"
-        >
-          Submit
+        <div className="mt-6">
+          <COMPONENT_LOADER showLoader={btnLoading}>
+            <div
+              onClick={() => {
+                buttonClick()
+              }}
+              className="submit-btn bg-primary-pink w-64 p-2 text-center rounded-md text-base cursor-pointer scale-100 hover:scale-105 transition-all"
+            >
+              Submit
+            </div>
+          </COMPONENT_LOADER>
         </div>
         <div className="mt-3">
           {signUpUI ? 'Already Have Account' : 'New Here'}?{' '}
