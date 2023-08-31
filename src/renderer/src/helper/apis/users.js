@@ -14,7 +14,8 @@ export const userSignUp = async (body) => {
       ...body
     })
 
-    localStorage.setItem('token', response.data.token)
+    const token = response.data.token
+    localStorage.setItem('token', token)
 
     return { ...response.data }
   } catch (error) {

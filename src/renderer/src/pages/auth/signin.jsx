@@ -3,11 +3,14 @@ import { useFilePicker } from 'use-file-picker'
 import pushNotification from '../../helper/notification'
 import COMPONENT_LOADER from '../../components/component_loader'
 import { userSignIn, userSignUp } from '../../helper/apis/users'
+import { useUserContext } from '../../helper/userContext'
+import { decodeToken } from 'react-jwt'
 
 function SIGNIN() {
   const [signUpUI, setsignUpUI] = useState(false)
   const [showError, setShowError] = useState({ show: false, message: 'Error Message' })
   const [btnLoading, setBtnLoading] = useState(false)
+  const { user, setUser } = useUserContext()
 
   // images
   const [avatarUrl, setAvatarUrl] = useState(
@@ -41,6 +44,11 @@ function SIGNIN() {
         avatar: ''
       })
 
+      setUser({
+        details: decodeToken(response.token),
+        userLoggedIn: true
+      })
+
       setBtnLoading(false)
       if (!response.success) {
         setShowError({
@@ -56,6 +64,12 @@ function SIGNIN() {
         email: inputs.email,
         password: inputs.password
       })
+
+      setUser({
+        details: decodeToken(response.token),
+        userLoggedIn: true
+      })
+
       setBtnLoading(false)
 
       if (!response.success) {
