@@ -24,6 +24,10 @@ function createWindow() {
     }
   })
 
+  const indexPath = 'http://localhost:5173/'
+
+  mainWindow.loadURL(indexPath)
+
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
   })

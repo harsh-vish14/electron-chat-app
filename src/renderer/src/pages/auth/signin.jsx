@@ -5,12 +5,14 @@ import COMPONENT_LOADER from '../../components/component_loader'
 import { userSignIn, userSignUp } from '../../helper/apis/users'
 import { useUserContext } from '../../helper/userContext'
 import { decodeToken } from 'react-jwt'
+import { useNavigate } from 'react-router-dom'
 
 function SIGNIN() {
   const [signUpUI, setsignUpUI] = useState(false)
   const [showError, setShowError] = useState({ show: false, message: 'Error Message' })
   const [btnLoading, setBtnLoading] = useState(false)
   const { user, setUser } = useUserContext()
+  const navigate = useNavigate()
 
   // images
   const [avatarUrl, setAvatarUrl] = useState(
@@ -48,6 +50,7 @@ function SIGNIN() {
         details: decodeToken(response.token),
         userLoggedIn: true
       })
+      navigate('/about')
 
       setBtnLoading(false)
       if (!response.success) {
@@ -69,6 +72,7 @@ function SIGNIN() {
         details: decodeToken(response.token),
         userLoggedIn: true
       })
+      navigate('/about')
 
       setBtnLoading(false)
 
